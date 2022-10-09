@@ -17,4 +17,4 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get --option Acquire::Retries=60 --option
 
 WORKDIR $userHome
 ONBUILD ADD ./build.bash /bin/build
-ONBUILD RUN /usr/bin/bash -o errexit -o xtrace -c /bin/build
+ONBUILD RUN /usr/bin/bash -o errexit -o xtrace -o pipefail /bin/build
