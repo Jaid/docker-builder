@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-set -o errexit
-set -o xtrace
 
 # shellcheck disable=SC2154
 addgroup --system --gid "$groupId" "$groupName"
