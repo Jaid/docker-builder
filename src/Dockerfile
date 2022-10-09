@@ -6,14 +6,8 @@ ENV userId 1000
 ENV groupId $userId
 ENV userHome /$userName
 
-RUN addgroup --system --gid $groupId $groupName
-RUN adduser --disabled-password --gecos '' --uid $userId --ingroup $groupName --home $userHome --no-create-home --shell /bin/bash $userName
-RUN mkdir --parents $userHome/bin
-RUN chown --recursive $userId:$groupId $userHome
-RUN DEBIAN_FRONTEND=noninteractive apt-get --option Acquire::Retries=60 --option Acquire::http::Timeout=180 --yes update
-RUN DEBIAN_FRONTEND=noninteractive apt-get --option Acquire::Retries=60 --option Acquire::http::Timeout=180 --yes upgrade
-RUN DEBIAN_FRONTEND=noninteractive apt-get --option Acquire::Retries=60 --option Acquire::http::Timeout=180 --yes install curl
-RUN DEBIAN_FRONTEND=noninteractive apt-get --option Acquire::Retries=60 --option Acquire::http::Timeout=180 --yes install build-essential
+ADD content/* .
+RUN bash ./init
 
 WORKDIR $userHome
 ONBUILD ADD ./build.bash /bin/build
