@@ -11,4 +11,4 @@ DEBIAN_FRONTEND=noninteractive apt-get --option Acquire::Retries=60 --option Acq
 DEBIAN_FRONTEND=noninteractive apt-get --option Acquire::Retries=60 --option Acquire::http::Timeout=180 --yes install curl
 DEBIAN_FRONTEND=noninteractive apt-get --option Acquire::Retries=60 --option Acquire::http::Timeout=180 --yes install build-essential
 
-rm ./init
+rm init
