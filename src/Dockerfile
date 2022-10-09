@@ -11,3 +11,4 @@ ADD content/* .
 RUN bash -o errexit -o xtrace -o pipefail ./init
 ONBUILD ADD ./build.bash /bin/build
 ONBUILD RUN /usr/bin/bash -o errexit -o xtrace -o pipefail /bin/build
+ONBUILD RUN chown --recursive $userId:$groupId .
