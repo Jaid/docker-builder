@@ -11,6 +11,7 @@ ADD bin/* /bin
 RUN ["/usr/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "xtrace", "/bin/init.bash"]
 ONBUILD ADD ./build*.bash /bin/
 ONBUILD RUN ["/usr/bin/bash", "-c", "if [[ -f /bin/build.bash ]]; then /usr/bin/bash -o errexit -o pipefail -o xtrace /bin/build.bash; fi"]
+ONBUILD RUN ["/usr/bin/bash", "-c", "if [[ -f /bin/build1.bash ]]; then /usr/bin/bash -o errexit -o pipefail -o xtrace /bin/build1.bash; fi"]
 ONBUILD RUN ["/usr/bin/bash", "-c", "if [[ -f /bin/build2.bash ]]; then /usr/bin/bash -o errexit -o pipefail -o xtrace /bin/build2.bash; fi"]
 ONBUILD RUN ["/usr/bin/bash", "-c", "if [[ -f /bin/build3.bash ]]; then /usr/bin/bash -o errexit -o pipefail -o xtrace /bin/build3.bash; fi"]
 ONBUILD RUN ["/usr/bin/bash", "-c", "if [[ -f /bin/build4.bash ]]; then /usr/bin/bash -o errexit -o pipefail -o xtrace /bin/build4.bash; fi"]
