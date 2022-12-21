@@ -1,4 +1,6 @@
-FROM ubuntu:22.10
+ARG ubuntuVersion 22.10
+
+FROM ubuntu:$ubuntuVersion
 
 ENV userName app
 ENV groupName $userName
