@@ -1,4 +1,4 @@
-ARG ubuntuVersion 22.10
+ARG ubuntuVersion=22.10
 
 FROM ubuntu:$ubuntuVersion
 
