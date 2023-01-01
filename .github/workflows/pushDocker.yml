@@ -11,45 +11,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - flavorSuffix: debian
+          - flavorSuffix: -debian
             image: debian:stable-slim
-            arch: linux/amd64
-          - flavorSuffix: debian2
-            image: debian:stable-slim
-            arch: linux/arm/v5
-          - flavorSuffix: debian3
-            image: debian:stable-slim
-            arch: linux/arm/v7
-          - flavorSuffix: debian4
-            image: debian:stable-slim
-            arch: linux/arm64/v8
-          - flavorSuffix: debian5
-            image: debian:stable-slim
-            arch: linux/ppc64le
-          - flavorSuffix: debian6
-            image: debian:stable-slim
-            arch: linux/s390x
-          # - flavorSuffix: ''
-          #   image: ubuntu:rolling
-          #   arch: ''
-          # - flavorSuffix: ubuntu-latest
-          #   image: ubuntu:latest
-          #   arch: ''
-          - flavorSuffix: ubuntu-latest
+            arch: linux/amd64,linux/arm64/v8,linux/ppc64le,linux/s390x
+          - flavorSuffix: ''
+            image: ubuntu:rolling
+            arch: ''
+          - flavorSuffix: -ubuntu-latest
             image: ubuntu:latest
-            arch: linux/s390x
-          - flavorSuffix: ubuntu-latest2
-            image: ubuntu:latest
-            arch: linux/riscv64
-          - flavorSuffix: ubuntu-latest3
-            image: ubuntu:latest
-            arch: linux/arm64/v8
-          - flavorSuffix: ubuntu-latest4
-            image: ubuntu:latest
-            arch: linux/arm/v7
-          - flavorSuffix: ubuntu-latest5
-            image: ubuntu:latest
-            arch: linux/s390x
+            arch: ''
     uses: jaid/workflows/.github/workflows/pushDocker.yml@main
     with:
       buildArgs: image=${{ matrix.image }}
