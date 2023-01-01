@@ -7,6 +7,19 @@ on:
     - cron: 45 23 * * 0 # https://crontab.guru/#45_23_*_*_0
 jobs:
   job:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - flavorSuffix: debian
+            image: debian
+          - flavorSuffix: ''
+            image: ubuntu:rolling
+          - flavorSuffix: ubuntu-latest
+            image: ubuntu:latest
     uses: jaid/workflows/.github/workflows/pushDocker.yml@main
+    with:
+      buildArgs: image=${{ matrix.image }}
+      flavorSuffix: ${{ matrix.flavorSuffix }}
     secrets:
       dockerHubToken: ${{ secrets.dockerHubToken }}
