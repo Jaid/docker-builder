@@ -17,7 +17,6 @@ RUN apt-get --option Acquire::Retries=60 --option Acquire::http::Timeout=180 --y
 
 WORKDIR /build
 ADD bin/* /bin
-RUN chmod ugo+x /bin/*
 RUN ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "xtrace", "/bin/init.bash"]
 ONBUILD ADD ./build*.bash /bin/
 ONBUILD RUN ["/bin/bash", "-c", "if [[ -f /bin/build.bash ]]; then /bin/bash -o errexit -o pipefail -o xtrace /bin/build.bash; fi"]
