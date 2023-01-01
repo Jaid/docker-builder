@@ -12,7 +12,7 @@ jobs:
       matrix:
         include:
           - flavorSuffix: debian
-            image: debian
+            image: debian:stable-slim
           - flavorSuffix: ''
             image: ubuntu:rolling
           - flavorSuffix: ubuntu-latest
