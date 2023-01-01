@@ -8,6 +8,7 @@ on:
 jobs:
   job:
     strategy:
+      fail-fast: false
       matrix:
         include:
           - flavorSuffix: debian
@@ -34,6 +35,21 @@ jobs:
           # - flavorSuffix: ubuntu-latest
           #   image: ubuntu:latest
           #   arch: ''
+          - flavorSuffix: ubuntu-latest
+            image: ubuntu:latest
+            arch: linux/s390x
+          - flavorSuffix: ubuntu-latest2
+            image: ubuntu:latest
+            arch: linux/riscv64
+          - flavorSuffix: ubuntu-latest3
+            image: ubuntu:latest
+            arch: linux/arm64/v8
+          - flavorSuffix: ubuntu-latest4
+            image: ubuntu:latest
+            arch: linux/arm/v7
+          - flavorSuffix: ubuntu-latest5
+            image: ubuntu:latest
+            arch: linux/s390x
     uses: jaid/workflows/.github/workflows/pushDocker.yml@main
     with:
       buildArgs: image=${{ matrix.image }}
