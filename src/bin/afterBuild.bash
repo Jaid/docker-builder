@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-rm /bin/build*.bash
-rm /bin/afterBuild.bash
+# shellcheck disable=SC2154
+rm "$userHome"/bin/build*.bash
+rm /bin/afterBuild
