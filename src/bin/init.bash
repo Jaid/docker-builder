@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -o errexit -o pipefail
 
 # shellcheck disable=SC2154
 addgroup --system --gid "$groupId" "$groupName"
@@ -6,9 +7,7 @@ addgroup --system --gid "$groupId" "$groupName"
 adduser --disabled-password --gecos '' --uid "$userId" --ingroup "$groupName" --home "$userHome" --no-create-home --shell /bin/bash "$userName"
 mkdir --parents "$userHome"/bin
 chown --recursive "$userId":"$groupId" "$userHome"
-DEBIAN_FRONTEND=noninteractive apt-get --option Acquire::Retries=60 --option Acquire::http::Timeout=180 --yes update
-DEBIAN_FRONTEND=noninteractive apt-get --option Acquire::Retries=60 --option Acquire::http::Timeout=180 --yes upgrade
-DEBIAN_FRONTEND=noninteractive apt-get --option Acquire::Retries=60 --option Acquire::http::Timeout=180 --yes install curl
-DEBIAN_FRONTEND=noninteractive apt-get --option Acquire::Retries=60 --option Acquire::http::Timeout=180 --yes install build-essential
+curl --location --retry 3 --fail --silent --show-error --header 'Cache-Control: no-cache' https://sh.rustup.rs | sh -s -- -y --no-modify-path
+installCargoPackage sd
 
 rm /bin/init.bash
