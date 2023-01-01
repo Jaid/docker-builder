@@ -2,6 +2,6 @@ version: "3.9"
 services:
 
   main:
-    container_name: ubuntu-builder-dev
+    container_name: builder-dev
     build:
       context: src
