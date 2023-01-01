@@ -15,5 +15,5 @@ for userBinary in "${userBinaries[@]}"; do
   mv "/bin/$userBinary.bash" "/bin/$userBinary"
   chmod ugo+x "/bin/$userBinary"
 done
-installCargoPackage sd
+bash -o xtrace "$(command -v installCargoPackage)" sd
 rm /bin/init.bash
