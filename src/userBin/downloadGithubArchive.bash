@@ -7,14 +7,14 @@ repoName=${repoSlug##*/}
 finalFolderName=$2
 if [[ -n $3 && -n $4 ]]; then
   if [[ $3 = sha ]]; then
-    commit=$4.tar.gz
+    commit=$4
     folderName=$repoName-$4
   else
-    commit=refs/heads/$4.tar.gz
+    commit=refs/heads/$4
     folderName=$repoName-$4
   fi
 else
-  commit=refs/heads/main.tar.gz
+  commit=refs/heads/main
   folderName=$repoName-main
 fi
 
