@@ -11,11 +11,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - flavorSuffix: -debian
+          - flavorSuffix: debian
             image: debian:stable-slim
-            arch: linux/amd64,linux/arm64/v8,linux/ppc64le,linux/s390x
           - image: ubuntu:rolling
-          - flavorSuffix: -ubuntu-latest
+          - flavorSuffix: lts
             image: ubuntu:latest
     uses: jaid/workflows/.github/workflows/pushDocker.yml@main
     with:
@@ -23,6 +22,5 @@ jobs:
         image=${{ matrix.image }}
         flavorSuffix=${{ matrix.flavorSuffix }}
       flavorSuffix: ${{ matrix.flavorSuffix }}
-      arch: ${{ matrix.arch }}
     secrets:
       dockerHubToken: ${{ secrets.dockerHubToken }}
