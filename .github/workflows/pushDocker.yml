@@ -6,7 +6,13 @@ on:
   schedule:
     - cron: 45 23 * * 0 # https://crontab.guru/#45_23_*_*_0
 jobs:
-  job:
+  test:
+    name: Test Docker
+    permissions:
+      contents: read
+    uses: jaid/workflows/.github/workflows/testDocker.yml@main
+  build:
+    needs: test
     strategy:
       fail-fast: false
       matrix:
