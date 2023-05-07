@@ -12,7 +12,7 @@ jobs:
       contents: read
     uses: jaid/workflows/.github/workflows/testDocker.yml@main
     with:
-      runArgs: ls
+      appArgs: ls
   # build:
   #   needs: test
   #   strategy:
