@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 set -o errexit -o pipefail
 
 # shellcheck disable=SC2154

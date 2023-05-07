@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 set -o errexit -o pipefail
 
 PATH=$PATH:$HOME/.cargo/bin
