@@ -1,4 +1,5 @@
 ARG image=ubuntu:rolling
+ARG pythonPackageVersion=3.11
 
 FROM $image
 
@@ -8,6 +9,7 @@ ENV groupName $userName
 ENV userId 1000
 ENV groupId $userId
 ENV userHome /$userName
+ENV pythonPackageVersion $pythonPackageVersion
 
 WORKDIR /build
 ADD bin/initBuilder.bash /bin/initBuilder
