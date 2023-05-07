@@ -36,5 +36,7 @@ if [[ -n "$groupName" ]]; then
   userAddArguments+=("$groupName")
 fi
 useradd --uid "$userId" --home "$userHome" "$userName" "${userAddArguments[@]}"
+mkdir --parents "$userHome/bin"
+mkdir --parents "$userHome/userBin"
 
 rm /bin/initBuilder
