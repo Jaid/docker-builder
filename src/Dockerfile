@@ -1,6 +1,27 @@
 ARG image=ubuntu:rolling
 ARG pythonPackageVersion=3.11
 
+FROM --platform=$BUILDPLATFORM ubuntu:rolling AS cargoFetch
+
+ENV userName app
+ENV groupName $userName
+ENV userId 1000
+ENV groupId $userId
+ENV userHome /$userName
+
+WORKDIR $userHome
+RUN DEBIAN_FRONTEND=noninteractive apt-get --option Acquire::Retries=60 --option Acquire::http::Timeout=180 --option APT::Get::Install-Recommends=false --option APT::Get::Install-Suggests=false --yes update
+RUN DEBIAN_FRONTEND=noninteractive apt-get --option Acquire::Retries=60 --option Acquire::http::Timeout=180 --option APT::Get::Install-Recommends=false --option APT::Get::Install-Suggests=false --yes install curl
+ADD bin/setupRust.bash /bin/setupRust
+RUN ["/bin/bash", "-o", "xtrace", "/bin/setupRust"]
+RUN mkdir project
+WORKDIR $userHome/project
+RUN PATH=$PATH:$HOME/.cargo/bin && export PATH && cargo init && cargo add itoa
+WORKDIR $userHome
+
+ENTRYPOINT [ "/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "xtrace", "-c" ]
+CMD [ "ls -l --all --time-style full-iso --block-size 1 \"$userHome\"" ]
+
 FROM $image
 
 ENV RUSTFLAGS '-C target-cpu=native -C opt-level=3 -C debuginfo=0 -C codegen-units=1'
@@ -10,6 +31,8 @@ ENV userId 1000
 ENV groupId $userId
 ENV userHome /$userName
 ENV pythonPackageVersion $pythonPackageVersion
+
+COPY --from=cargoFetch /root/.cargo /root/.cargo
 
 WORKDIR /build
 ADD bin/initBuilder.bash /bin/initBuilder
