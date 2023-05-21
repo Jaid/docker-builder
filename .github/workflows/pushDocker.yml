@@ -13,22 +13,22 @@ jobs:
     uses: jaid/workflows/.github/workflows/testDocker.yml@main
     with:
       appArgs: ls
-  # build:
-  #   needs: test
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       include:
-  #         - flavorSuffix: debian
-  #           image: debian:stable-slim
-  #         - image: ubuntu:rolling
-  #         - flavorSuffix: lts
-  #           image: ubuntu:latest
-  #   uses: jaid/workflows/.github/workflows/pushDocker.yml@main
-  #   with:
-  #     buildArgs: |
-  #       image=${{ matrix.image }}
-  #       flavorSuffix=${{ matrix.flavorSuffix }}
-  #     flavorSuffix: ${{ matrix.flavorSuffix }}
-  #   secrets:
-  #     dockerHubToken: ${{ secrets.dockerHubToken }}
+  build:
+    needs: test
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - flavorSuffix: debian
+            image: debian:stable-slim
+          - image: ubuntu:rolling
+          - flavorSuffix: lts
+            image: ubuntu:latest
+    uses: jaid/workflows/.github/workflows/pushDocker.yml@main
+    with:
+      buildArgs: |
+        image=${{ matrix.image }}
+        flavorSuffix=${{ matrix.flavorSuffix }}
+      flavorSuffix: ${{ matrix.flavorSuffix }}
+    secrets:
+      dockerHubToken: ${{ secrets.dockerHubToken }}
