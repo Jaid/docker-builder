@@ -26,7 +26,7 @@ RUN ["/bin/bash", "-o", "xtrace", "/bin/setupBuilder"]
 ADD bin/afterBuild.bash /bin/afterBuild
 
 ENTRYPOINT [ "/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "xtrace", "-c" ]
-CMD [ "ls -l --all --time-style full-iso --block-size 1 /" ]
+CMD [ "ls -l --all --time-style full-iso --block-size 1 / /root \"$userHome\"/*" ]
 
 ONBUILD ADD ./build/build*.bash $userHome/bin
 ONBUILD RUN ["/bin/bash", "-c", "if [[ -f $userHome/bin/build.bash ]]; then /bin/bash -o errexit -o pipefail -o xtrace $userHome/bin/build.bash; fi"]
