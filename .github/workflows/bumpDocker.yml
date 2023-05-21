@@ -12,24 +12,49 @@ on:
           - minor
           - major
 jobs:
-  job:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - flavorSuffix: -debian
-            image: debian:stable-slim
-            arch: linux/amd64,linux/arm64/v8,linux/ppc64le,linux/s390x
-          - flavorSuffix: ''
-            image: ubuntu:rolling
-            arch: ''
-          - flavorSuffix: -ubuntu-latest
-            image: ubuntu:latest
-    uses: jaid/workflows/.github/workflows/bumpDocker.yml@main
+  bump:
+    permissions:
+      contents: write
+    uses: jaid/workflows/.github/workflows/bump.yml@main
     with:
       bumpAmount: ${{ inputs.bumpAmount }}
+  pushDocker:
+    name: Docker image ${{ matrix.flavorSuffix }}
+    permissions:
+      packages: write
+      contents: read
+    needs:
+      - bump
+    strategy:
+      matrix:
+        include:
+          # ubuntu:rolling
+          - flavorSuffix: amd64
+            image: ubuntu:rolling
+            arch: linux/amd64
+          - flavorSuffix: arm64
+            image: ubuntu:rolling
+            arch: linux/arm64/v8
+          # debian:stable-slim
+          - flavorSuffix: debian-amd64
+            image: debian:stable-slim
+            arch: linux/amd64
+          - flavorSuffix: debian-arm64
+            image: debian:stable-slim
+            arch: linux/arm64/v8
+          # ubuntu:latest
+          - flavorSuffix: lts-amd64
+            image: ubuntu:latest
+            arch: linux/amd64
+          - flavorSuffix: lts-arm64
+            image: ubuntu:latest
+            arch: linux/arm64/v8
+    uses: jaid/workflows/.github/workflows/pushDocker.yml@main
+    with:
+      dockerHubUser: jaidchen
       buildArgs: image=${{ matrix.image }}
       flavorSuffix: ${{ matrix.flavorSuffix }}
       arch: ${{ matrix.arch }}
+      versionTag: ${{ needs.bump.outputs.newTag }}
     secrets:
       dockerHubToken: ${{ secrets.dockerHubToken }}
