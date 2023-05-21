@@ -11,8 +11,6 @@ jobs:
     permissions:
       contents: read
     uses: jaid/workflows/.github/workflows/testDocker.yml@main
-    with:
-      appArgs: ls
   build:
     needs: test
     strategy:
