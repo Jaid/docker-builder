@@ -19,11 +19,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - flavorSuffix: debian
-            image: debian:stable-slim
           - image: ubuntu:rolling
           - flavorSuffix: lts
             image: ubuntu:latest
+          - flavorSuffix: debian
+            image: debian:stable-slim
     uses: jaid/workflows/.github/workflows/pushDocker.yml@main
     with:
       dockerHubUser: jaidchen
