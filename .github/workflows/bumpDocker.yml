@@ -48,7 +48,6 @@ jobs:
             arch: linux/amd64
           - flavorSuffix: lts-arm64
             image: ubuntu:latest
-            arch: linux/arm64/v8
     uses: jaid/workflows/.github/workflows/pushDocker.yml@main
     with:
       dockerHubUser: jaidchen
