@@ -12,7 +12,7 @@ jobs:
       contents: read
     uses: jaid/workflows/.github/workflows/testDocker.yml@main
     with:
-      test: stdout.includes('+0000 .cargo')
+      test: /\+0+\s+\.cargo/.test(stdout)
   buildAndRun:
     needs: test
     strategy:
