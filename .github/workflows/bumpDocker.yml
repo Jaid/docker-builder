@@ -28,32 +28,17 @@ jobs:
     strategy:
       matrix:
         include:
-          # ubuntu:rolling
-          - flavorSuffix: amd64
-            image: ubuntu:rolling
-            arch: linux/amd64
-          - flavorSuffix: arm64
-            image: ubuntu:rolling
-            arch: linux/arm64/v8
-          # debian:stable-slim
-          - flavorSuffix: debian-amd64
-            image: debian:stable-slim
-            arch: linux/amd64
-          - flavorSuffix: debian-arm64
-            image: debian:stable-slim
-            arch: linux/arm64/v8
-          # ubuntu:latest
-          - flavorSuffix: lts-amd64
+          - image: ubuntu:rolling
+          - flavorSuffix: lts
             image: ubuntu:latest
-            arch: linux/amd64
-          - flavorSuffix: lts-arm64
-            image: ubuntu:latest
+          - flavorSuffix: debian
+            image: debian:stable-slim
     uses: jaid/workflows/.github/workflows/pushDocker.yml@main
     with:
       dockerHubUser: jaidchen
       buildArgs: image=${{ matrix.image }}
       flavorSuffix: ${{ matrix.flavorSuffix }}
-      arch: ${{ matrix.arch }}
+      arch: linux/amd64,linux/arm64/v8
       versionTag: ${{ needs.bump.outputs.newTag }}
     secrets:
       dockerHubToken: ${{ secrets.dockerHubToken }}
