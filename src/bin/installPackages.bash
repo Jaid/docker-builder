@@ -11,11 +11,12 @@ packages+=(gettext)
 packages+=(automake)
 packages+=(pkg-config)
 if [[ -n $pythonPackageVersion ]]; then
+  pythonMajorVersion="${pythonPackageVersion%%.*}"
   packages+=("python$pythonPackageVersion")
   packages+=("python$pythonPackageVersion-dev")
   packages+=("python$pythonPackageVersion-venv")
   packages+=("python$pythonPackageVersion-distutils")
-  packages+=("python$pythonPackageVersion-distutils-extra")
+  packages+=("python$pythonMajorVersion-distutils-extra")
 fi
 
 aptGet update

@@ -1,5 +1,4 @@
 ARG image=ubuntu:rolling
-ARG pythonPackageVersion=3.11
 
 FROM --platform=$BUILDPLATFORM ubuntu:rolling AS cargoFetch
 
@@ -24,13 +23,15 @@ CMD [ "ls -l --all --time-style full-iso --block-size 1 \"$userHome\"" ]
 
 FROM $image
 
+ARG pythonPackageVersion=3.11
+ENV pythonPackageVersion $pythonPackageVersion
+
 ENV RUSTFLAGS '-C target-cpu=native -C opt-level=3 -C debuginfo=0 -C codegen-units=1'
 ENV userName app
 ENV groupName $userName
 ENV userId 1000
 ENV groupId $userId
 ENV userHome /$userName
-ENV pythonPackageVersion $pythonPackageVersion
 
 COPY --from=cargoFetch /root/.cargo /root/.cargo
 
