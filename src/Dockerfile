@@ -41,8 +41,10 @@ RUN ["/bin/bash", "-o", "xtrace", "/bin/initBuilder"]
 ADD userBin/* $userHome/userBin
 ADD bin/registerUserBin.bash /bin/registerUserBin
 RUN ["/bin/bash", "-o", "xtrace", "/bin/registerUserBin"]
-ADD bin/installPackages.bash /bin/installPackages
-RUN ["/bin/bash", "-o", "xtrace", "/bin/installPackages"]
+ADD bin/installEssentials.bash /bin/installEssentials
+RUN ["/bin/bash", "-o", "xtrace", "/bin/installEssentials"]
+ADD bin/installPython.bash /bin/installPython
+RUN ["/bin/bash", "-o", "xtrace", "/bin/installPython"]
 ADD bin/setupRust.bash /bin/setupRust
 RUN ["/bin/bash", "-o", "xtrace", "/bin/setupRust"]
 ADD bin/setupBuilder.bash /bin/setupBuilder
