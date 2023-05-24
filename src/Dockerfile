@@ -43,7 +43,7 @@ RUN ["/bin/bash", "-o", "xtrace", "/bin/registerUserBin"]
 ADD bin/installEssentials.bash /bin/installEssentials
 RUN ["/bin/bash", "-o", "xtrace", "/bin/installEssentials"]
 ADD bin/installPython.bash /bin/installPython
-RUN ["/bin/bash", "-o", "xtrace", "/bin/installPython", "$pythonPackageVersion"]
+RUN ["/bin/bash", "-o", "xtrace", "/bin/installPython", "${pythonPackageVersion}"]
 ADD bin/setupRust.bash /bin/setupRust
 RUN ["/bin/bash", "-o", "xtrace", "/bin/setupRust"]
 ADD bin/setupBuilder.bash /bin/setupBuilder
