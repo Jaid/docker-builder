@@ -17,12 +17,14 @@ RUN /bin/bash -o xtrace /bin/initBuilder
 ADD userBin/* $userHome/userBin
 ADD bin/registerUserBin.bash /bin/registerUserBin
 ADD bin/installEssentials.bash /bin/installEssentials
+ADD bin/installCTools.bash /bin/installCTools
 ADD bin/installPython.bash /bin/installPython
 ADD bin/setupRust.bash /bin/setupRust
 ADD bin/setupBuilder.bash /bin/setupBuilder
 ADD bin/afterBuild.bash /bin/afterBuild
 RUN /bin/bash -o xtrace /bin/registerUserBin
 RUN /bin/bash -o xtrace /bin/installEssentials
+RUN /bin/bash -o xtrace /bin/installCTools
 RUN pythonPackageVersion=$pythonPackageVersion /bin/bash -o xtrace /bin/installPython
 RUN /bin/bash -o xtrace /bin/setupRust
 RUN /bin/bash -o xtrace /bin/setupBuilder
