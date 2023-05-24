@@ -3,14 +3,15 @@ ARG image=ubuntu:rolling
 FROM $image
 
 SHELL [ "/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "xtrace", "-c" ]
-WORKDIR /build
 ARG pythonPackageVersion=3
+ARG buildFolder=/build
 ENV RUSTFLAGS '-C target-cpu=native -C opt-level=3 -C debuginfo=0 -C codegen-units=1'
 ENV userName app
 ENV groupName $userName
 ENV userId 1000
 ENV groupId $userId
 ENV userHome /$userName
+WORKDIR $buildFolder
 
 ADD bin/initBuilder.bash /bin/initBuilder
 RUN /bin/bash -o xtrace /bin/initBuilder
@@ -51,4 +52,4 @@ ONBUILD RUN ["/bin/bash", "-c", "if [[ -f $userHome/bin/build14.bash ]]; then /b
 ONBUILD RUN ["/bin/bash", "-c", "if [[ -f $userHome/bin/build15.bash ]]; then /bin/bash -o errexit -o pipefail -o xtrace $userHome/bin/build15.bash; fi"]
 ONBUILD RUN ["/bin/bash", "-c", "if [[ -f $userHome/bin/build16.bash ]]; then /bin/bash -o errexit -o pipefail -o xtrace $userHome/bin/build16.bash; fi"]
 ONBUILD RUN ["/bin/bash", "-o", "xtrace", "/bin/afterBuild"]
-ONBUILD RUN chown --recursive $userId:$groupId .
+ONBUILD RUN chown --recursive $userId:$groupId $buildFolder
