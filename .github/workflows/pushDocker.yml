@@ -13,6 +13,8 @@ jobs:
     uses: jaid/workflows/.github/workflows/testDocker.yml@main
     with:
       test: /\+0+\s+\.cargo/.test(stdout)
+      buildArgs: |
+        pythonPackageVersion=3.11
   pushDocker:
     needs: test
     strategy:
@@ -33,7 +35,6 @@ jobs:
       arch: linux/amd64,linux/arm64/v8
       buildArgs: |
         image=${{ matrix.image }}
-        flavorSuffix=${{ matrix.flavorSuffix }}
         pythonPackageVersion=${{ matrix.pythonPackageVersion }}
       flavorSuffix: ${{ matrix.flavorSuffix }}
     secrets:
