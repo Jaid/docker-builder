@@ -1,6 +1,8 @@
 #!/bin/bash
 set -o errexit -o pipefail
 
+pythonPackageVersion=$1
+
 if [[ -z $pythonPackageVersion ]]; then
   printf 'ARG pythonPackageVersion not set, skipping python installation.\n'
   exit 0

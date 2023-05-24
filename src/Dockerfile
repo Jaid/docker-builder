@@ -24,7 +24,6 @@ ARG image=ubuntu:rolling
 FROM $image
 
 ARG pythonPackageVersion=3
-ENV pythonPackageVersion $pythonPackageVersion
 
 ENV RUSTFLAGS '-C target-cpu=native -C opt-level=3 -C debuginfo=0 -C codegen-units=1'
 ENV userName app
@@ -44,7 +43,7 @@ RUN ["/bin/bash", "-o", "xtrace", "/bin/registerUserBin"]
 ADD bin/installEssentials.bash /bin/installEssentials
 RUN ["/bin/bash", "-o", "xtrace", "/bin/installEssentials"]
 ADD bin/installPython.bash /bin/installPython
-RUN ["/bin/bash", "-o", "xtrace", "/bin/installPython"]
+RUN ["/bin/bash", "-o", "xtrace", "/bin/installPython", "$pythonPackageVersion"]
 ADD bin/setupRust.bash /bin/setupRust
 RUN ["/bin/bash", "-o", "xtrace", "/bin/setupRust"]
 ADD bin/setupBuilder.bash /bin/setupBuilder
