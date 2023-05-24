@@ -5,6 +5,7 @@ FROM $image
 SHELL [ "/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "xtrace", "-c" ]
 ARG pythonPackageVersion=3
 ARG buildFolder=/build
+ENV buildFolder $buildFolder
 ENV RUSTFLAGS '-C target-cpu=native -C opt-level=3 -C debuginfo=0 -C codegen-units=1'
 ENV userName app
 ENV groupName $userName
@@ -33,6 +34,7 @@ RUN /bin/bash -o xtrace /bin/setupBuilder
 ENTRYPOINT [ "/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "xtrace", "-c" ]
 CMD [ "ls -l --all --time-style full-iso --block-size 1 / /root \"$userHome\"/*" ]
 
+ONBUILD WORKDIR $buildFolder
 ONBUILD ADD ./build/build*.bash $userHome/bin
 ONBUILD RUN ["/bin/bash", "-c", "if [[ -f $userHome/bin/build.bash ]]; then /bin/bash -o errexit -o pipefail -o xtrace $userHome/bin/build.bash; fi"]
 ONBUILD RUN ["/bin/bash", "-c", "if [[ -f $userHome/bin/build1.bash ]]; then /bin/bash -o errexit -o pipefail -o xtrace $userHome/bin/build1.bash; fi"]
@@ -52,4 +54,4 @@ ONBUILD RUN ["/bin/bash", "-c", "if [[ -f $userHome/bin/build14.bash ]]; then /b
 ONBUILD RUN ["/bin/bash", "-c", "if [[ -f $userHome/bin/build15.bash ]]; then /bin/bash -o errexit -o pipefail -o xtrace $userHome/bin/build15.bash; fi"]
 ONBUILD RUN ["/bin/bash", "-c", "if [[ -f $userHome/bin/build16.bash ]]; then /bin/bash -o errexit -o pipefail -o xtrace $userHome/bin/build16.bash; fi"]
 ONBUILD RUN ["/bin/bash", "-o", "xtrace", "/bin/afterBuild"]
-ONBUILD RUN chown --recursive $userId:$groupId $buildFolder
+ONBUILD RUN chown --recursive $userId:$groupId $buildFolder $userHome
