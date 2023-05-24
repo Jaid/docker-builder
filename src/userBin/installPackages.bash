@@ -1,9 +1,16 @@
 #!/bin/bash
 set -o errexit -o pipefail
 
-aptGet update
-aptGet upgrade
+hasIndex=false
+if [[ -f /var/lib/apt/lists/lock ]]; then
+  hasIndex=true
+fi
+
+if $hasIndex; then
+  printf 'apt index is locally available, skipping update.\n'
+else
+  aptGet update
+  aptGet upgrade
+fi
+
 aptGet install "$@"
-aptGet autoclean
-aptGet autoremove
-rm --recursive --force /var/log/* /var/lib/apt/lists/* /var/cache/apt/archives/* /usr/share/doc /usr/share/man
