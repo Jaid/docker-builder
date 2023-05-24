@@ -35,20 +35,22 @@ ENV userHome /$userName
 # COPY --from=cargoFetch /root/.cargo /root/.cargo
 
 WORKDIR /build
+SHELL [ "/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "xtrace", "-c" ]
+
 ADD bin/initBuilder.bash /bin/initBuilder
-RUN ["/bin/bash", "-o", "xtrace", "/bin/initBuilder"]
+RUN /bin/initBuilder
 ADD userBin/* $userHome/userBin
 ADD bin/registerUserBin.bash /bin/registerUserBin
-RUN ["/bin/bash", "-o", "xtrace", "/bin/registerUserBin"]
 ADD bin/installEssentials.bash /bin/installEssentials
-RUN ["/bin/bash", "-o", "xtrace", "/bin/installEssentials"]
 ADD bin/installPython.bash /bin/installPython
-RUN ["/bin/bash", "-o", "xtrace", "/bin/installPython", "${pythonPackageVersion}"]
 ADD bin/setupRust.bash /bin/setupRust
-RUN ["/bin/bash", "-o", "xtrace", "/bin/setupRust"]
 ADD bin/setupBuilder.bash /bin/setupBuilder
-RUN ["/bin/bash", "-o", "xtrace", "/bin/setupBuilder"]
 ADD bin/afterBuild.bash /bin/afterBuild
+RUN /bin/registerUserBin
+RUN /bin/installEssentials
+RUN /bin/installPython $pythonPackageVersion
+RUN /bin/setupRust
+RUN /bin/setupBuilder
 
 ENTRYPOINT [ "/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "xtrace", "-c" ]
 CMD [ "ls -l --all --time-style full-iso --block-size 1 / /root \"$userHome\"/*" ]
