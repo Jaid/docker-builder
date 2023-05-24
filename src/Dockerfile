@@ -23,7 +23,7 @@ CMD [ "ls -l --all --time-style full-iso --block-size 1 \"$userHome\"" ]
 
 FROM $image
 
-ARG pythonPackageVersion=3.11
+ARG pythonPackageVersion=3
 ENV pythonPackageVersion $pythonPackageVersion
 
 ENV RUSTFLAGS '-C target-cpu=native -C opt-level=3 -C debuginfo=0 -C codegen-units=1'

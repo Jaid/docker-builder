@@ -29,14 +29,19 @@ jobs:
       matrix:
         include:
           - image: ubuntu:rolling
+            pythonPackageVersion: 3.11
           - flavorSuffix: lts
             image: ubuntu:latest
+            pythonPackageVersion: 3.11
           - flavorSuffix: debian
             image: debian:stable-slim
+            pythonPackageVersion: 3.9
     uses: jaid/workflows/.github/workflows/pushDocker.yml@main
     with:
       dockerHubUser: jaidchen
-      buildArgs: image=${{ matrix.image }}
+      buildArgs: |
+        image=${{ matrix.image }}
+        pythonPackageVersion=${{ matrix.pythonPackageVersion }}
       flavorSuffix: ${{ matrix.flavorSuffix }}
       arch: linux/amd64,linux/arm64/v8
       versionTag: ${{ needs.bump.outputs.newSemver }}

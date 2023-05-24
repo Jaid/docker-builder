@@ -20,10 +20,13 @@ jobs:
       matrix:
         include:
           - image: ubuntu:rolling
+            pythonPackageVersion: 3.11
           - flavorSuffix: lts
             image: ubuntu:latest
+            pythonPackageVersion: 3.11
           - flavorSuffix: debian
             image: debian:stable-slim
+            pythonPackageVersion: 3.9
     uses: jaid/workflows/.github/workflows/pushDocker.yml@main
     with:
       dockerHubUser: jaidchen
@@ -31,6 +34,7 @@ jobs:
       buildArgs: |
         image=${{ matrix.image }}
         flavorSuffix=${{ matrix.flavorSuffix }}
+        pythonPackageVersion=${{ matrix.pythonPackageVersion }}
       flavorSuffix: ${{ matrix.flavorSuffix }}
     secrets:
       dockerHubToken: ${{ secrets.dockerHubToken }}
