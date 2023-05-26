@@ -10,5 +10,7 @@ safeCurl https://deb.nodesource.com/setup_"$nodeVersion".x | bash -
 installPackagesMinified nodejs
 
 npm install --global npm
-npm install --global node-gyp
+if [[ -n $pythonPackageVersion ]]; then
+  npm install --global node-gyp
+fi
 npm install --global package-field-cli
