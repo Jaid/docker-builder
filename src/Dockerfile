@@ -7,6 +7,8 @@ ARG pythonPackageVersion=3
 ENV pythonPackageVersion $pythonPackageVersion
 ARG javaVersion=20
 ENV javaVersion $javaVersion
+ARG nodeVersion=current
+ENV nodeVersion $nodeVersion
 ARG buildFolder=/build
 ENV buildFolder $buildFolder
 ENV userName app
@@ -24,6 +26,7 @@ ADD bin/installEssentials.bash /bin/installEssentials
 ADD bin/installCTools.bash /bin/installCTools
 ADD bin/installPython.bash /bin/installPython
 ADD bin/installJava.bash /bin/installJava
+ADD bin/installNode.bash /bin/installNode
 ADD bin/setupRust.bash /bin/setupRust
 ADD bin/setupBuilder.bash /bin/setupBuilder
 ADD bin/afterBuild.bash /bin/afterBuild
@@ -32,6 +35,7 @@ RUN /bin/bash -o xtrace /bin/installEssentials
 RUN /bin/bash -o xtrace /bin/installCTools
 RUN /bin/bash -o xtrace /bin/installPython
 RUN /bin/bash -o xtrace /bin/installJava
+RUN /bin/bash -o xtrace /bin/installNode
 RUN /bin/bash -o xtrace /bin/setupRust
 RUN /bin/bash -o xtrace /bin/setupBuilder
 

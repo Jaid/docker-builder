@@ -14,7 +14,7 @@ packages+=("python$pythonPackageVersion-venv")
 packages+=("python$pythonPackageVersion-distutils")
 packages+=("python$pythonMajorVersion-distutils-extra")
 
-installPackages "${packages[@]}"
+installPackagesMinified "${packages[@]}"
 
 pythonPath=$(command -v python || command -v python"$pythonMajorVersion")
 $pythonPath --version

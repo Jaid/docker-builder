@@ -11,4 +11,4 @@ packages+=(automake)
 packages+=(pkg-config)
 packages+=(ninja-build)
 
-installPackages "${packages[@]}"
+installPackagesMinified "${packages[@]}"

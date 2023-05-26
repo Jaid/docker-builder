@@ -5,4 +5,4 @@ packages=()
 packages+=(git)
 packages+=(curl)
 
-installPackages "${packages[@]}"
+installPackagesMinified "${packages[@]}"

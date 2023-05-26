@@ -7,10 +7,10 @@ if [[ -z $javaVersion ]]; then
 fi
 
 packages=()
-packages+=(openjdk-"$javaVersion"-jdk)
+packages+=(openjdk-"$javaVersion"-jdk-headless)
 packages+=(maven)
 
-installPackages "${packages[@]}"
+installPackagesMinified "${packages[@]}"
 
 java -version
 mvn -version
