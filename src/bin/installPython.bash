@@ -2,7 +2,7 @@
 set -o errexit -o pipefail
 
 if [[ -z $pythonPackageVersion ]]; then
-  printf 'ARG pythonPackageVersion not set, skipping python installation.\n'
+  printf 'ARG pythonPackageVersion not set, skipping Python installation.\n'
   exit 0
 fi
 
@@ -15,3 +15,6 @@ packages+=("python$pythonPackageVersion-distutils")
 packages+=("python$pythonMajorVersion-distutils-extra")
 
 installPackages "${packages[@]}"
+
+pythonPath=$(command -v python || command -v python"$pythonMajorVersion")
+$pythonPath --version
