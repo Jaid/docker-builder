@@ -18,7 +18,7 @@ else
   folderName=$repoName-main
 fi
 
-curl --location --retry 3 --fail --silent --show-error --header 'Cache-Control: no-cache' "https://github.com/$repoOwner/$repoName/archive/$commit.tar.gz" | tar -x -z -f -
+safeCurl "https://github.com/$repoOwner/$repoName/archive/$commit.tar.gz" | tar -x -z -f -
 if [[ -n $folderName ]]; then
   mv "$folderName" "$finalFolderName"
 fi
