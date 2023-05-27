@@ -6,18 +6,18 @@ on:
   schedule:
     - cron: 45 23 * * 0 # https://crontab.guru/#45_23_*_*_0
 jobs:
-  a:
+  matrix:
     name: Testing
-    uses: jaid/docker-builder/.github/workflows/makeMatrix.yml@main
+    uses: jaid/workflows/.github/workflows/makeDockerTagMatrix.yml@main
     with:
       bases: ubuntu:rolling ubuntu:latest debian:stable-slim
       platform: linux/amd64 linux/arm64/v8
       additionEvals: |
-        pythonPackageVersion: base.startsWith('debian') ? '3.9' : '3.11'
-      idEval: |
-        [baseShortcuts[base], platformShortcuts[platform] ?? platform.replaceAll('/', '_')].filter(Boolean).join('-')
+        pythonVersion: base.startsWith('debian') ? '3.9' : '3.11'
   test:
     name: Test Docker
+    needs:
+      - matrix
     permissions:
       contents: read
     uses: jaid/workflows/.github/workflows/testDocker.yml@main
@@ -26,26 +26,20 @@ jobs:
       buildArgs: |
         pythonPackageVersion=3.11
   pushDocker:
-    needs: test
+    needs:
+      - test
+      - matrix
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - image: ubuntu:rolling
-            pythonPackageVersion: 3.11
-          - flavorSuffix: lts
-            image: ubuntu:latest
-            pythonPackageVersion: 3.11
-          - flavorSuffix: debian
-            image: debian:stable-slim
-            pythonPackageVersion: 3.9
+        include: ${{ fromJson(needs.matrix.outputs.output) }}
     uses: jaid/workflows/.github/workflows/pushDocker.yml@main
     with:
       dockerHubUser: jaidchen
-      arch: linux/amd64,linux/arm64/v8
+      arch: ${{ matrix.platform }}
       buildArgs: |
-        image=${{ matrix.image }}
-        pythonPackageVersion=${{ matrix.pythonPackageVersion }}
-      flavorSuffix: ${{ matrix.flavorSuffix }}
+        image=${{ matrix.base }}
+        pythonPackageVersion=${{ matrix.pythonVersion }}
+      flavorSuffix: ${{ matrix.id }}
     secrets:
       dockerHubToken: ${{ secrets.dockerHubToken }}
