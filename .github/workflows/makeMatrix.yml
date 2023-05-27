@@ -1,4 +1,3 @@
-name: makeMatrix
 on:
   workflow_call:
     inputs:
@@ -6,27 +5,30 @@ on:
         description: List of base images, split by anything
         required: false
         type: string
-      platforms:
+      platform:
         description: List of platforms, split by anything
         required: false
         type: string
         default: linux/amd64 linux/arm64/v8
-      additions:
+      additionEvals:
         description: List of additional values, javascript object code without outer braces
         required: false
         type: string
+      idEval:
+        description: Javascript code to generate the id
+        required: false
+        type: string
+        default: |
+          [
+            baseShortcuts[base],
+            platformShortcuts[platform] ?? platform.replaceAll('/', '_')
+          ].filter(Boolean).join('-')
     outputs:
-      meta:
-        output: ${{ jobs.job.outputs.output }}
-  workflow_dispatch:
-    inputs:
-      inputs:
-        description: 'The inputs to the matrix'
-        required: true
-        default: '{}'
+      output:
+        description: The dynamically generated matrix in JSON
+        value: ${{ jobs.job.outputs.output }}
 jobs:
   job:
-    name: ${{ github.event_name }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -47,9 +49,13 @@ jobs:
         env:
           inputs: ${{ toJSON(inputs) }}
         run: |
+          import core from "@actions/core";
           import { matches, firstMatch } from "super-regex";
           import { VM } from "vm2";
-          import core from "@actions/core";
+          const inputs = JSON.parse(process.env.inputs);
+
+          console.dir(inputs)
+          console.dir(process)
 
           const matchAll = (regex, string) => {
             return Array.from(
@@ -68,7 +74,6 @@ jobs:
             return vm.run(code);
           };
 
-          const inputs = JSON.parse(process.env.inputs);
           const bases = inputs.bases
             ? matchAll(/(?<match>[\w-_:]+)/g, inputs.bases).map((match) => match.match)
             : [""];
@@ -100,7 +105,7 @@ jobs:
                 }
               }
               const platformShortcuts = {
-                "linux/amd64": "amd",
+                "linux/amd64": null,
                 "linux/arm/v7": "arm7",
                 "linux/arm64/v8": "arm8",
                 "linux/ppc64le": "ppc",
@@ -108,6 +113,7 @@ jobs:
                 "linux/386": "386",
               };
               const baseShortcuts = {
+                "ubuntu:rolling": null,
                 "debian:stable-slim": "debian",
                 "ubuntu:latest": "lts",
               };
