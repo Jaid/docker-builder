@@ -12,7 +12,8 @@ jobs:
       bases: ubuntu:rolling ubuntu:latest debian:stable-slim
       platform: linux/amd64 linux/arm64/v8
       additionEvals: |
-        pythonVersion: base.startsWith('debian') ? '3.9' : '3.11'
+        pythonVersion: { 'debian:stable-slim': '3.9' }[base] ?? '3.11'
+        javaVersion: { 'ubuntu:rolling': '21', 'ubuntu:latest': '19' }[base] ?? '17'
   test:
     name: test${{ matrix.id && format(' ({0})', matrix.id) }}
     needs:
@@ -29,6 +30,7 @@ jobs:
       buildArgs: |
         image=${{ matrix.base }}
         pythonPackageVersion=${{ matrix.pythonVersion }}
+        javaVersion=${{ matrix.javaVersion }}
       arch: ${{ matrix.platform }}
   pushDocker:
     name: push${{ matrix.id && format(' ({0})', matrix.id) }}

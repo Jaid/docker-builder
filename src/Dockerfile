@@ -5,7 +5,7 @@ FROM $image
 SHELL [ "/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "xtrace", "-c" ]
 ARG pythonPackageVersion=3
 ENV pythonPackageVersion $pythonPackageVersion
-ARG javaVersion=20
+ARG javaVersion=21
 ENV javaVersion $javaVersion
 ARG nodeVersion=current
 ENV nodeVersion $nodeVersion
