@@ -6,6 +6,16 @@ on:
   schedule:
     - cron: 45 23 * * 0 # https://crontab.guru/#45_23_*_*_0
 jobs:
+  a:
+    name: Testing
+    uses: jaid/docker-builder/.github/workflows/makeMatrix.yml@main
+    with:
+      bases: ubuntu:rolling ubuntu:latest debian:stable-slim
+      platform: linux/amd64 linux/arm64/v8
+      additionEvals: |
+        pythonPackageVersion: base.startsWith('debian') ? '3.9' : '3.11'
+      idEval: |
+        [baseShortcuts[base], platformShortcuts[platform] ?? platform.replaceAll('/', '_')].filter(Boolean).join('-')
   test:
     name: Test Docker
     permissions:
