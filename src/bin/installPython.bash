@@ -13,5 +13,6 @@ packages+=("python$pythonPackageVersion-dev")
 
 installPackagesMinified "${packages[@]}"
 
+set +o errexit +o pipefail
 pythonPath=$(command -v python || command -v python"$pythonMajorVersion")
 # $pythonPath --version
