@@ -14,7 +14,7 @@ jobs:
       additionEvals: |
         pythonVersion: base.startsWith('debian') ? '3.9' : '3.11'
   test:
-    name: test (${{ matrix.id }})
+    name: test${{ matrix.id && format(' (%s)', matrix.id) }}
     needs:
       - matrix
     strategy:
@@ -31,7 +31,7 @@ jobs:
         pythonPackageVersion=${{ matrix.pythonVersion }}
       arch: ${{ matrix.platform }}
   pushDocker:
-    name: push (${{ matrix.id }})
+    name: push${{ matrix.id && format(' (%s)', matrix.id) }}
     needs:
       - test
       - matrix
