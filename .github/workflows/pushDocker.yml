@@ -17,13 +17,19 @@ jobs:
     name: Test Docker
     needs:
       - matrix
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.matrix.outputs.output) }}
     permissions:
       contents: read
     uses: jaid/workflows/.github/workflows/testDocker.yml@main
     with:
       test: /\+0+\s+\.cargo/.test(stdout)
       buildArgs: |
-        pythonPackageVersion=3.11
+        image=${{ matrix.base }}
+        pythonPackageVersion=${{ matrix.pythonVersion }}
+      arch: ${{ matrix.platform }}
   pushDocker:
     needs:
       - test
