@@ -48,6 +48,7 @@ jobs:
       buildArgs: |
         image=${{ matrix.base }}
         pythonPackageVersion=${{ matrix.pythonVersion }}
+        javaVersion=${{ matrix.javaVersion }}
       flavorSuffix: ${{ matrix.id }}
     secrets:
       dockerHubToken: ${{ secrets.dockerHubToken }}
