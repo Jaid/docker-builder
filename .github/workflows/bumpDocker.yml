@@ -12,6 +12,8 @@ on:
           - minor
           - major
 jobs:
+  matrix:
+    uses: ./.github/workflows/makeMatrix.yml
   bump:
     permissions:
       contents: write
@@ -25,26 +27,20 @@ jobs:
       contents: read
     needs:
       - bump
+      - matrix
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - image: ubuntu:rolling
-            pythonPackageVersion: 3.11
-          - flavorSuffix: lts
-            image: ubuntu:latest
-            pythonPackageVersion: 3.11
-          - flavorSuffix: debian
-            image: debian:stable-slim
-            pythonPackageVersion: 3.9
+        include: ${{ fromJson(needs.matrix.outputs.output) }}
     uses: jaid/workflows/.github/workflows/pushDocker.yml@main
     with:
       dockerHubUser: jaidchen
       buildArgs: |
-        image=${{ matrix.image }}
-        pythonPackageVersion=${{ matrix.pythonPackageVersion }}
-      flavorSuffix: ${{ matrix.flavorSuffix }}
-      arch: linux/amd64,linux/arm64/v8
+        image=${{ matrix.base }}
+        pythonPackageVersion=${{ matrix.pythonVersion }}
+        javaVersion=${{ matrix.javaVersion }}
+      arch: ${{ matrix.platform }}
+      flavorSuffix: ${{ matrix.id }}
       versionTag: ${{ needs.bump.outputs.newSemver }}
     secrets:
       dockerHubToken: ${{ secrets.dockerHubToken }}

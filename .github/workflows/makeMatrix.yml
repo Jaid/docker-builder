@@ -1,0 +1,14 @@
+on:
+  workflow_call:
+    outputs:
+      output:
+        description: The dynamically generated matrix in JSON
+        value: ${{ jobs.job.outputs.output }}
+jobs:
+  job:
+    uses: jaid/workflows/.github/workflows/makeDockerTagMatrix.yml@main
+    with:
+      bases: ubuntu:rolling ubuntu:latest debian:stable-slim
+      additionEvals: |
+        pythonVersion: Object.create({ 'debian:stable-slim': '3.9' })[base] ?? '3.11'
+        javaVersion: Object.create({ 'ubuntu:rolling': '21', 'ubuntu:latest': '19' })[base] ?? '17'
