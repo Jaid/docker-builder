@@ -1,15 +1,15 @@
 #!/bin/bash
 set -o errexit -o pipefail
 
-if [[ -z $pythonPackageVersion ]]; then
-  printf 'ARG pythonPackageVersion not set, skipping Python installation.\n'
+if [[ -z $pythonVersion ]]; then
+  printf 'ARG pythonVersion not set, skipping Python installation.\n'
   exit 0
 fi
 
 packages=()
-pythonMajorVersion="${pythonPackageVersion%%.*}"
-packages+=("python$pythonPackageVersion")
-packages+=("python$pythonPackageVersion-dev")
+pythonMajorVersion="${pythonVersion%%.*}"
+packages+=("python$pythonVersion")
+packages+=("python$pythonVersion-dev")
 
 installPackagesMinified "${packages[@]}"
 
