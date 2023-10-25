@@ -13,8 +13,7 @@ if [[ ! -d $keyringsFolder ]]; then
   printf >&2 'ERROR: %s does not exist.\n' "$keyringsFolder"
   exit 1
 fi
-safeCurl "https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key" | gpg --dearmor >"$keyringsFolder"/nodesource.gpg
-aptGet update
+releaseName=nodistro releaseCategory=main addAptSource nodesource https://deb.nodesource.com/gpgkey/nodesource.gpg.key "https://deb.nodesource.com/node_$NODE_MAJOR.x"
 installPackagesMinified nodejs npm
 
 nodeGyp=false
