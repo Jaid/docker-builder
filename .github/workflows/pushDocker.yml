@@ -22,7 +22,7 @@ jobs:
       matrixBases: ubuntu:rolling ubuntu:latest debian:stable-slim
       matrixAdditionEvals: |-
         image: base
-        pythonVersion: Object.create({ 'ubuntu:rolling': `3.12`, 'ubuntu:latest': `3.12` })[image] ?? `3.11`
+        pythonVersion: Object.create({ 'ubuntu:rolling': `3.12`, 'ubuntu:latest': `3.11` })[image] ?? `3.11`
         javaVersion: Object.create({ 'ubuntu:rolling': 17, 'ubuntu:latest': 21 })[image] ?? 17
         nodeVersion: `21.1.0`
       versionTag: ${{ github.event.client_payload.newTag }}
