@@ -16,7 +16,7 @@ fi
 importKey nodesource https://deb.nodesource.com/gpgkey/nodesource.gpg.key
 importKey nodesourceRepo https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key
 releaseName=nodistro addAptList nodesource "https://deb.nodesource.com/node_$NODE_MAJOR.x" nodesourceRepo
-installPackagesMinified nodejs npm
+installPackagesMinified --fix-broken nodejs npm
 
 nodeGyp=false
 if [[ -n $pythonVersion ]]; then
