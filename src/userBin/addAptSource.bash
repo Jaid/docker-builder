@@ -24,8 +24,10 @@ gpgFolder=$HOME/.cache/gpg
 keyFile=$gpgFolder/$keyName.key
 keyringName=${keyName}Temp.gpg
 gpgTempFile=$gpgFolder/$keyName.gpg
-gpgFinalFile=/etc/apt/keyrings/$keyName.gpg
-listFile=/etc/apt/sources.list.d/$keyName.list
+keyringFolder=${keyringFolder:-/etc/apt/keyrings}
+listFolder=${listFolder:-/etc/apt/sources.list.d}
+gpgFinalFile=$keyringFolder/$keyName.gpg
+listFile=$listFolder/$keyName.list
 if [[ -f $gpgFinalFile ]]; then
   printf 'gpg file %s already exists, skipping\n' "$gpgFinalFile"
   exit 0
@@ -34,10 +36,17 @@ if [[ -f $listFile ]]; then
   printf 'List file %s already exists, skipping\n' "$listFile"
   exit 0
 fi
-mkdir --parents "$gpgFolder"
+tempFolderExists=false
+if [[ ! -d $gpgFolder ]]; then
+  mkdir --parents "$gpgFolder"
+  tempFolderExists=true
+fi
 safeCurl "$keyUrl" --output "$keyFile"
 gpg --no-default-keyring --keyring "$keyringName" --import "$keyFile"
 gpg --no-default-keyring --keyring "$keyringName" --export --output "$gpgTempFile"
-cp "$gpgTempFile" "$gpgFinalFile"
-printf 'deb [signed-by=/usr/share/keyrings/%s.gpg] %s %s %s' "$keyName" "$packageUrl" "$releaseName" "$releaseCategory" | tee "$listFile"
+mv "$gpgTempFile" "$gpgFinalFile"
+printf "deb [signed-by=$gpgFinalFile] %s %s %s" "$keyName" "$packageUrl" "$releaseName" "$releaseCategory" | tee "$listFile"
 aptGet update
+if ! $tempFolderExists; then
+  rm --recursive --force "$gpgFolder"
+fi
