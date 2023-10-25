@@ -22,13 +22,9 @@ jobs:
       matrixBases: ubuntu:rolling ubuntu:latest debian:stable-slim
       matrixAdditionEvals: |-
         image: base
-        pythonVersion: Object.create({ 'ubuntu:latest': `3.11`, 'ubuntu:rolling': `3.12` })[base] ?? `3.9`
-        javaVersion: Object.create({ 'ubuntu:rolling': `21`, 'ubuntu:latest': `19` })[base] ?? `17`
+        pythonVersion: Object.create({ 'ubuntu:latest': `3.11`, 'ubuntu:rolling': `3.12` })[image] ?? `3.11`
+        javaVersion: Object.create({ 'ubuntu:rolling': `21`, 'ubuntu:latest': `19` })[image] ?? `17`
         nodeVersion: `21.1.0`
-      # matrixFlavorEval: |-
-      #   const baseSegment = base === 'a' ? false : base
-      #   const platformSegment = platformShortcuts[platform] ?? platform.replaceAll('/', '_');
-      #   [baseSegment, platformSegment].filter(part => part?.length).join('-')
       versionTag: ${{ github.event.client_payload.newTag }}
     secrets:
       dockerHubToken: ${{ secrets.dockerHubToken }}
