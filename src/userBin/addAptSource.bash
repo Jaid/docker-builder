@@ -36,10 +36,10 @@ if [[ -f $listFile ]]; then
   printf 'List file %s already exists, skipping\n' "$listFile"
   exit 0
 fi
-tempFolderExists=false
+tempFolderExists=true
 if [[ ! -d $gpgFolder ]]; then
   mkdir --parents "$gpgFolder"
-  tempFolderExists=true
+  tempFolderExists=false
 fi
 safeCurl "$keyUrl" --output "$keyFile"
 gpg --no-default-keyring --keyring "$keyringName" --import "$keyFile"
