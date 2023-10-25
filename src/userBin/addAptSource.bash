@@ -10,7 +10,6 @@ keyName=$1
 packageUrl=$2
 keyUrl=$3
 
-defaultReleaseName=$VERSION_CODENAME
 if [[ -z $releaseName ]]; then
   # shellcheck disable=SC1091
   source /etc/os-release
