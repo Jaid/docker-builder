@@ -26,7 +26,7 @@ jobs:
         image: base
         pythonVersion: Object.create({ 'ubuntu:latest': `3.11`, 'ubuntu:rolling': `3.12` })[base] ?? `3.9`
         javaVersion: Object.create({ 'ubuntu:rolling': `21`, 'ubuntu:latest': `19` })[base] ?? `17`
-        nodeVersion: `20.9.0`
+        nodeVersion: `21.1.0`
       # matrixFlavorEval: |-
       #   const baseSegment = base === 'a' ? false : base
       #   const platformSegment = platformShortcuts[platform] ?? platform.replaceAll('/', '_');
