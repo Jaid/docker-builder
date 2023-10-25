@@ -24,9 +24,9 @@ jobs:
       # matrixBases: ubuntu:rolling ubuntu:latest debian:stable-slim
       matrixAdditionEvals: |-
         image: base
-        pythonVersion: Object.create({ 'debian:stable-slim': `3.9` })[base] ?? `3.12`
+        pythonVersion: Object.create({ 'ubuntu:latest': `3.11`, 'ubuntu:rolling': `3.12` })[base] ?? `3.9`
         javaVersion: Object.create({ 'ubuntu:rolling': `21`, 'ubuntu:latest': `19` })[base] ?? `17`
-        nodeVersion: `21.1.0`
+        nodeVersion: `20.9.0`
       # matrixFlavorEval: |-
       #   const baseSegment = base === 'a' ? false : base
       #   const platformSegment = platformShortcuts[platform] ?? platform.replaceAll('/', '_');
