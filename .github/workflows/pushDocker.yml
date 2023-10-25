@@ -23,10 +23,10 @@ jobs:
       matrixAdditionEvals: |-
         pythonVersion: Object.create({ 'debian:stable-slim': '3.9' })[base] ?? '3.12'
         javaVersion: Object.create({ 'ubuntu:rolling': '21', 'ubuntu:latest': '19' })[base] ?? '17'
-      matrixFlavorEval: |-
-        const baseSegment = base === 'a' ? false : base
-        const platformSegment = platformShortcuts[platform] ?? platform.replaceAll('/', '_');
-        [baseSegment, platformSegment].filter(part => part?.length).join('-')
+      # matrixFlavorEval: |-
+      #   const baseSegment = base === 'a' ? false : base
+      #   const platformSegment = platformShortcuts[platform] ?? platform.replaceAll('/', '_');
+      #   [baseSegment, platformSegment].filter(part => part?.length).join('-')
       testEval: stdout.includes(':-):)')  && stdout.includes('Min [ms]')
       versionTag: ${{ github.event.client_payload.newTag }}
     secrets:
