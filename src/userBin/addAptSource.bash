@@ -38,6 +38,6 @@ mkdir --parents "$gpgFolder"
 safeCurl "$keyUrl" --output "$keyFile"
 gpg --no-default-keyring --keyring "$keyringName" --import "$keyFile"
 gpg --no-default-keyring --keyring "$keyringName" --export --output "$gpgTempFile"
-sudo cp "$gpgTempFile" "$gpgFinalFile"
-printf 'deb [signed-by=/usr/share/keyrings/%s.gpg] %s %s %s' "$keyName" "$packageUrl" "$releaseName" "$releaseCategory" | sudo tee "$listFile"
+cp "$gpgTempFile" "$gpgFinalFile"
+printf 'deb [signed-by=/usr/share/keyrings/%s.gpg] %s %s %s' "$keyName" "$packageUrl" "$releaseName" "$releaseCategory" | tee "$listFile"
 aptGet update
