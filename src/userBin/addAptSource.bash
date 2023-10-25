@@ -10,10 +10,16 @@ keyName=$1
 packageUrl=$2
 keyUrl=$3
 
-# shellcheck disable=SC1091
-source /etc/os-release
 defaultReleaseName=$VERSION_CODENAME
-releaseName=${releaseName:-$defaultReleaseName}
+if [[ -z $releaseName ]]; then
+  # shellcheck disable=SC1091
+  source /etc/os-release
+  releaseName=$VERSION_CODENAME
+  if [[ -z $releaseName ]]; then
+    printf >&2 'ERROR: releaseName not set.\n'
+    exit 1
+  fi
+fi
 releaseCategory=${releaseCategory:-main}
 gpgFolder=$HOME/.cache/gpg
 keyFile=$gpgFolder/$keyName.key
