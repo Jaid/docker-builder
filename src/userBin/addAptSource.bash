@@ -41,11 +41,10 @@ if [[ ! -d $gpgFolder ]]; then
   mkdir --parents "$gpgFolder"
   tempFolderExists=false
 fi
-# safeCurl "$keyUrl" --output "$keyFile"
-# gpg --no-default-keyring --keyring "$keyringName" --import "$keyFile"
-# gpg --no-default-keyring --keyring "$keyringName" --export --output "$gpgTempFile"
-# mv "$gpgTempFile" "$gpgFinalFile"
-safeCurl "$keyUrl" | gpg --dearmor -o "$gpgFinalFile"
+safeCurl "$keyUrl" --output "$keyFile"
+gpg --no-default-keyring --keyring "$keyringName" --import "$keyFile"
+gpg --no-default-keyring --keyring "$keyringName" --export --output "$gpgTempFile"
+mv "$gpgTempFile" "$gpgFinalFile"
 chmod 644 "$gpgFinalFile"
 printf 'deb [signed-by=%s] %s %s %s\n' "$gpgFinalFile" "$packageUrl" "$releaseName" "$releaseCategory" | tee "$listFile"
 chmod 644 "$listFile"

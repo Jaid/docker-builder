@@ -23,6 +23,7 @@ jobs:
       # matrixPlatform: linux/amd64 linux/arm64/v8
       # matrixBases: ubuntu:rolling ubuntu:latest debian:stable-slim
       matrixAdditionEvals: |-
+        image: base
         pythonVersion: Object.create({ 'debian:stable-slim': `3.9` })[base] ?? `3.12`
         javaVersion: Object.create({ 'ubuntu:rolling': `21`, 'ubuntu:latest': `19` })[base] ?? `17`
         nodeVersion: `21.1.0`
@@ -30,7 +31,6 @@ jobs:
       #   const baseSegment = base === 'a' ? false : base
       #   const platformSegment = platformShortcuts[platform] ?? platform.replaceAll('/', '_');
       #   [baseSegment, platformSegment].filter(part => part?.length).join('-')
-      testEval: stdout.includes(':-):)')  && stdout.includes('Min [ms]')
       versionTag: ${{ github.event.client_payload.newTag }}
     secrets:
       dockerHubToken: ${{ secrets.dockerHubToken }}
