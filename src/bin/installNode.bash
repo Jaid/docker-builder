@@ -15,7 +15,7 @@ if [[ ! -d $keyringsFolder ]]; then
 fi
 safeCurl "https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key" | gpg --dearmor >"$keyringsFolder"/nodesource.gpg
 aptGet update
-installPackagesMinified nodejs
+installPackagesMinified nodejs npm
 
 nodeGyp=false
 if [[ -n $pythonVersion ]]; then
