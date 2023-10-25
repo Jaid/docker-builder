@@ -23,7 +23,7 @@ jobs:
       matrixAdditionEvals: |-
         image: base
         pythonVersion: Object.create({ 'ubuntu:latest': `3.11`, 'ubuntu:rolling': `3.12` })[image] ?? `3.11`
-        javaVersion: Object.create({ 'ubuntu:rolling': `21`, 'ubuntu:latest': `21` })[image] ?? `21`
+        javaVersion: Object.create({ 'ubuntu:rolling': 21, 'ubuntu:latest': 21 })[image] ?? 21
         nodeVersion: `21.1.0`
       versionTag: ${{ github.event.client_payload.newTag }}
     secrets:
