@@ -10,7 +10,9 @@ keyName=$1
 packageUrl=$2
 keyUrl=$3
 
-defaultReleaseName=$(lsb_release --codename | cut --fields 2)
+# shellcheck disable=SC1091
+source /etc/os-release
+defaultReleaseName=$VERSION_CODENAME
 releaseName=${releaseName:-$defaultReleaseName}
 releaseCategory=${releaseCategory:-main}
 gpgFolder=$HOME/.cache/gpg
