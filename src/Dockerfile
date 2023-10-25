@@ -7,7 +7,7 @@ ARG pythonVersion=3
 ENV pythonVersion $pythonVersion
 ARG javaVersion=21
 ENV javaVersion $javaVersion
-ARG nodeVersion=current
+ARG nodeVersion=21.1.0
 ENV nodeVersion $nodeVersion
 ARG buildFolder=/build
 ENV buildFolder $buildFolder

@@ -25,7 +25,7 @@ jobs:
       matrixAdditionEvals: |-
         pythonVersion: Object.create({ 'debian:stable-slim': `3.9` })[base] ?? `3.12`
         javaVersion: Object.create({ 'ubuntu:rolling': `21`, 'ubuntu:latest': `19` })[base] ?? `17`
-        nodeVersion: `current`
+        nodeVersion: `21.1.0`
       # matrixFlavorEval: |-
       #   const baseSegment = base === 'a' ? false : base
       #   const platformSegment = platformShortcuts[platform] ?? platform.replaceAll('/', '_');
