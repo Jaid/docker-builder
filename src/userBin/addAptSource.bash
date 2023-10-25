@@ -45,7 +45,9 @@ safeCurl "$keyUrl" --output "$keyFile"
 gpg --no-default-keyring --keyring "$keyringName" --import "$keyFile"
 gpg --no-default-keyring --keyring "$keyringName" --export --output "$gpgTempFile"
 mv "$gpgTempFile" "$gpgFinalFile"
+chmod 644 "$gpgFinalFile"
 printf "deb [signed-by=$gpgFinalFile] %s %s %s" "$packageUrl" "$releaseName" "$releaseCategory" | tee "$listFile"
+chmod 644 "$listFile"
 aptGet update
 if ! $tempFolderExists; then
   rm --recursive --force "$gpgFolder"
