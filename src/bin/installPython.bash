@@ -6,6 +6,9 @@ if [[ -z $pythonVersion ]]; then
   exit 0
 fi
 
+PATH=$HOME/.local/bin:/root/.local/bin:$PATH
+export PATH
+
 safeCurl https://astral.sh/uv/install.sh | sh
-~/.local/bin/uv python install "$pythonVersion"
-~/.local/bin/uv python list
+uv python install "$pythonVersion"
+uv python list
