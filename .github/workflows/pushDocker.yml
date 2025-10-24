@@ -21,15 +21,15 @@ jobs:
       matrixPlatform: linux/amd64 linux/arm64/v8
       matrixBases: latest lts debian
       matrixAdditionEvals: |-
-        image: Object.create({ lts: `ubuntu:latest`, debian: `debian:stable-slim` })[base] ?? `ubuntu:rolling`
-        pythonVersion: Object.create({ latest: `3.12`, lts: `3.11` })[base] ?? `3.11`
-        javaVersion: Object.create({ latest: 19, lts: 19 })[base] ?? 17
-        nodeVersion: `21.1.0`
+        image: Object.create({ lts: 'ubuntu:latest', debian: 'debian:stable-slim' })[base] ?? 'ubuntu:rolling'
+        pythonVersion: '3.14'
+        javaVersion: 25
+        nodeVersion: '25.0.0'
       matrixFlavorEval: |-
         [
-          base === `latest` ? null : base,
-          platformShortcuts[platform] ?? platform.replaceAll(`/`, `_`)
-        ].filter(Boolean).join(`-`)
+          base === 'latest' ? null : base,
+          platformShortcuts[platform] ?? platform.replaceAll('/', '_')
+        ].filter(Boolean).join('-')
       versionTag: ${{ github.event.client_payload.newTag }}
     secrets:
       dockerHubToken: ${{ secrets.dockerHubToken }}
