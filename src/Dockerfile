@@ -7,8 +7,8 @@ ARG pythonVersion=3
 ENV pythonVersion $pythonVersion
 ARG javaVersion=25
 ENV javaVersion $javaVersion
-ARG nodeVersion=25.0.0
-ENV nodeVersion $nodeVersion
+ARG bunVersion=1.3.1
+ENV bunVersion $bunVersion
 ARG buildFolder=/build
 ENV buildFolder $buildFolder
 ENV userName app
@@ -26,7 +26,7 @@ ADD bin/installEssentials.bash /bin/installEssentials
 ADD bin/installCTools.bash /bin/installCTools
 ADD bin/installPython.bash /bin/installPython
 ADD bin/installJava.bash /bin/installJava
-ADD bin/installNode.bash /bin/installNode
+ADD bin/installBun.bash /bin/installBun
 ADD bin/setupRust.bash /bin/setupRust
 ADD bin/setupBuilder.bash /bin/setupBuilder
 ADD bin/afterBuild.bash /bin/afterBuild
@@ -35,12 +35,12 @@ RUN /bin/bash -o xtrace /bin/installEssentials
 RUN /bin/bash -o xtrace /bin/installCTools
 RUN /bin/bash -o xtrace /bin/installPython
 RUN /bin/bash -o xtrace /bin/installJava
-RUN /bin/bash -o xtrace /bin/installNode
+RUN /bin/bash -o xtrace /bin/installBun
 RUN /bin/bash -o xtrace /bin/setupRust
 RUN /bin/bash -o xtrace /bin/setupBuilder
 
 ENTRYPOINT [ "/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "xtrace", "-c" ]
-CMD [ "ls -l --all --time-style full-iso --block-size 1 / /root \"$userHome\"/*" ]
+CMD [ "ls -l --all --time-style full-iso --block-size=1 / /root \"$userHome\"/*" ]
 
 ONBUILD WORKDIR $buildFolder
 ONBUILD ADD ./build/build*.bash $userHome/bin
