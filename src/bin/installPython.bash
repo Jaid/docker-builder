@@ -7,5 +7,5 @@ if [[ -z $pythonVersion ]]; then
 fi
 
 safeCurl https://astral.sh/uv/install.sh | sh
-uv python install "$pythonVersion"
-uv python list
+~/.local/bin/uv python install "$pythonVersion"
+~/.local/bin/uv python list
