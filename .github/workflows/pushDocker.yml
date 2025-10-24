@@ -22,7 +22,7 @@ jobs:
       matrixBases: latest lts debian
       matrixAdditionEvals: |-
         image: Object.create({ lts: 'ubuntu:latest', debian: 'debian:stable-slim' })[base] ?? 'ubuntu:rolling'
-        pythonVersion: Object.create({ lts: '3.12', debian: '3.12' })[base] ?? '3.14'
+        pythonVersion: '3.14'
         javaVersion: 25
         bunVersion: '1.3.1'
       matrixFlavorEval: |-
