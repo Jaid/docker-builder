@@ -6,15 +6,6 @@ if [[ -z $pythonVersion ]]; then
   exit 0
 fi
 
-packages=()
-pythonMajorVersion="${pythonVersion%%.*}"
-packages+=("python$pythonVersion")
-packages+=("python$pythonVersion-dev")
-
-installPackagesMinified "${packages[@]}"
-
-# pythonPath=$(command -v python || command -v python"$pythonMajorVersion")
-# $pythonPath --version
-
-command -v python || true
-command -v python"$pythonMajorVersion" || true
+safeCurl https://astral.sh/uv/install.sh | sh
+uv python install "$pythonVersion"
+uv python list
