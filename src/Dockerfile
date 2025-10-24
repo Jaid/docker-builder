@@ -4,18 +4,18 @@ FROM $image
 
 SHELL [ "/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "xtrace", "-c" ]
 ARG pythonVersion=3
-ENV pythonVersion $pythonVersion
+ENV pythonVersion=$pythonVersion
 ARG javaVersion=25
-ENV javaVersion $javaVersion
+ENV javaVersion=$javaVersion
 ARG bunVersion=1.3.1
-ENV bunVersion $bunVersion
+ENV bunVersion=$bunVersion
 ARG buildFolder=/build
-ENV buildFolder $buildFolder
-ENV userName app
-ENV groupName $userName
-ENV userId 1000
-ENV groupId $userId
-ENV userHome /$userName
+ENV buildFolder=$buildFolder
+ENV userName=app
+ENV groupName=$userName
+ENV userId=1000
+ENV groupId=$userId
+ENV userHome=/$userName
 WORKDIR $buildFolder
 
 ADD bin/initBuilder.bash /bin/initBuilder
