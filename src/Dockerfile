@@ -3,7 +3,7 @@ ARG image=ubuntu:rolling
 FROM $image
 
 SHELL [ "/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "xtrace", "-c" ]
-ARG pythonVersion=3
+ARG pythonVersion=3.14
 ENV pythonVersion=$pythonVersion
 ARG javaVersion=25
 ENV javaVersion=$javaVersion
