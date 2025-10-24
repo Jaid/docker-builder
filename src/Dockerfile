@@ -5,9 +5,9 @@ FROM $image
 SHELL [ "/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "xtrace", "-c" ]
 ARG pythonVersion=3
 ENV pythonVersion $pythonVersion
-ARG javaVersion=21
+ARG javaVersion=25
 ENV javaVersion $javaVersion
-ARG nodeVersion=21.1.0
+ARG nodeVersion=25.0.0
 ENV nodeVersion $nodeVersion
 ARG buildFolder=/build
 ENV buildFolder $buildFolder
