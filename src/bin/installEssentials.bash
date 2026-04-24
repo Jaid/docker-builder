@@ -7,3 +7,4 @@ packages+=(curl)
 packages+=(apt-utils)
 
 installPackagesMinified "${packages[@]}"
+rm /bin/installEssentials

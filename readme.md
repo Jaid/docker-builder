@@ -1,4 +1,54 @@
 # docker-builder
 
-![Latest GitHub release](https://img.shields.io/github/v/release/Jaid/docker-builder?label=Release&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Jaid/docker-builder/Push%20Docker?label=CI&style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNCAxNCIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0Ij48cGF0aCBmaWxsPSIjZmZmIiBkPSJNNyAxNGMzLjg2NiAwIDcgLTMuMTM0IDcgLTdTMTAuODY2IDAgNyAwIDAgMy4xMzQgMCA3czMuMTM0IDcgNyA3em0zLjA5IC04LjI4NUw2LjU5IDkuMjE1Yy0wLjI1NyAwLjI1NyAtMC42NzMgMC4yNTcgLTAuOTI3IDBsLTEuNzUgLTEuNzVjLTAuMjU3IC0wLjI1NyAtMC4yNTcgLTAuNjczIDAgLTAuOTI3czAuNjczIC0wLjI1NyAwLjkyNyAwbDEuMjg1IDEuMjg1TDkuMTYgNC43ODVjMC4yNTcgLTAuMjU3IDAuNjczIC0wLjI1NyAwLjkyNyAwczAuMjU3IDAuNjczIDAgMC45Mjd6Ii8+PC9zdmc+)  
+![Latest GitHub release](https://img.shields.io/github/v/release/Jaid/docker-builder?label=Release&style=flat-square) ![GitHub Actions workflow status](https://img.shields.io/github/actions/workflow/status/Jaid/docker-builder/pushDocker.yml?label=CI&style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNCAxNCIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0Ij48cGF0aCBmaWxsPSIjZmZmIiBkPSJNNyAxNGMzLjg2NiAwIDcgLTMuMTM0IDcgLTdTMTAuODY2IDAgNyAwIDAgMy4xMzQgMCA3czMuMTM0IDcgNyA3em0zLjA5IC04LjI4NUw2LjU5IDkuMjE1Yy0wLjI1NyAwLjI1NyAtMC42NzMgMC4yNTcgLTAuOTI3IDBsLTEuNzUgLTEuNzVjLTAuMjU3IC0wLjI1NyAtMC4yNTcgLTAuNjczIDAgLTAuOTI3czAuNjczIC0wLjI1NyAwLjkyNyAwbDEuMjg1IDEuMjg1TDkuMTYgNC43ODVjMC4yNTcgLTAuMjU3IDAuNjczIC0wLjI1NyAwLjkyNyAwczAuMjU3IDAuNjczIDAgMC45Mjd6Ii8+PC9zdmc+)
 ![DockerHub stars](https://img.shields.io/docker/stars/jaidchen/builder?label=DockerHub+stars&color=1c90ed&style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNCAxMi40NDQiIHdpZHRoPSIxNCIgaGVpZ2h0PSIxMi40NDQiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik03LjcwMiAwLjQzOGMtMC4xMjkgLTAuMjY3IC0wLjQwMSAtMC40MzggLTAuNyAtMC40MzhzLTAuNTY5IDAuMTcgLTAuNyAwLjQzOEw0Ljc0IDMuNjUzIDEuMjQ5IDQuMTY4Yy0wLjI5MiAwLjA0NCAtMC41MzUgMC4yNDggLTAuNjI1IDAuNTI3cy0wLjAxNyAwLjU4OCAwLjE5MiAwLjc5NUwzLjM0OSA3Ljk5N2wtMC41OTggMy41NDFjLTAuMDQ5IDAuMjkyIDAuMDczIDAuNTg4IDAuMzE0IDAuNzYxczAuNTU5IDAuMTk0IDAuODIyIDAuMDU2bDMuMTE4IC0xLjY2NSAzLjExOCAxLjY2NWMwLjI2MyAwLjEzOSAwLjU4MSAwLjExOSAwLjgyMiAtMC4wNTZzMC4zNjIgLTAuNDY5IDAuMzE0IC0wLjc2MUwxMC42NTggNy45OTdsMi41MzMgLTIuNTA2YzAuMjA5IC0wLjIwNyAwLjI4NCAtMC41MTUgMC4xOTIgLTAuNzk1cy0wLjMzMyAtMC40ODQgLTAuNjI1IC0wLjUyN2wtMy40OTMgLTAuNTE1TDcuNzAyIDAuNDM4eiIvPjwvc3ZnPg==) ![DockerHub pulls](https://img.shields.io/docker/pulls/jaidchen/builder?color=1c90ed&label=DockerHub%20pulls&logo=docker&logoColor=white&style=flat-square) ![Docker image size](https://img.shields.io/docker/image-size/jaidchen/builder/main?arch=arm64&label=Image+size&color=1c90ed&style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNCAxMS4yIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMi40NSAyLjFhLjcuNyAwIDAgMSAuNy0uN2guMzVhLjcuNyAwIDAgMSAuNy43djdhLjcuNyAwIDAgMS0uNy43aC0uMzVhLjcuNyAwIDAgMS0uNy0uN3YtLjdIMS40YS43LjcgMCAwIDEtLjctLjdWNi4zYS43LjcgMCAxIDEgMC0xLjRWMy41YS43LjcgMCAwIDEgLjctLjdoMS4wNXYtLjd6bTkuMSAwdi43aDEuMDVhLjcuNyAwIDAgMSAuNy43djEuNGEuNy43IDAgMSAxIDAgMS40djEuNGEuNy43IDAgMCAxLS43LjdoLTEuMDV2LjdhLjcuNyAwIDAgMS0uNy43aC0uMzVhLjcuNyAwIDAgMS0uNy0uN3YtN2EuNy43IDAgMCAxIC43LS43aC4zNWEuNy43IDAgMCAxIC43Ljd6TTkuMSA0Ljl2MS40SDQuOVY0LjloNC4yeiIvPjwvc3ZnPg==)
+
+opinionated Docker builder image for downstream projects that want a modern Linux build environment without maintaining their own bootstrap layer
+
+## Included tooling
+
+- C and C++ toolchains, CMake, Ninja, Flex, Automake, gettext and pkg-config
+- Python via uv
+- OpenJDK and Maven
+- Bun
+- Rust and Cargo
+- `sd` plus the helper scripts from `src/userBin`
+
+## Downstream usage
+
+The image is meant to be used as an `ONBUILD` base. During a downstream build it looks for these scripts inside the child build context and executes them in order:
+
+- `build/build.bash`
+- `build/build1.bash`
+- `build/build2.bash`
+- `…`
+
+Each script runs with `/build` as the working directory. The downstream build context is mounted read-only at `/context`, so build scripts can copy or compile files from there without baking the raw source tree into the base image layers.
+
+~~~dockerfile
+FROM jaidchen/builder:latest
+~~~
+
+~~~bash
+#!/bin/bash
+set -o errexit -o pipefail
+
+cp --recursive /context/. /build/project
+cd /build/project
+bun install --frozen-lockfile
+bun run build
+~~~
+
+## Local helper scripts
+
+- `bin/build` builds and loads the local `builder-dev` image.
+- `bin/buildFs` exports the built image filesystem. On Windows it writes `dist/fs.tar`, because NTFS cannot represent all Linux filesystem entries.
+- `bin/run` builds and runs the local dev container.
+- The helper scripts can fall back to Docker Desktop’s standalone `docker-buildx.exe` and `docker-compose.exe` binaries if the `docker` subcommands are not wired up in the current shell.
+
+## Notes
+
+- BuildKit is required.
+- The default image variants are published from the GitHub workflow matrix in `.github/workflows/pushDocker.yml`.
+- Local helper scripts live in `./bin`.
+- The default Bun version is pinned to 1.3.13.

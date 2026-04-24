@@ -14,3 +14,4 @@ packages+=(g++)
 packages+=(gcc)
 
 installPackagesMinified "${packages[@]}"
+rm /bin/installCTools

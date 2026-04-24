@@ -10,4 +10,4 @@ if [[ -z $divePath ]]; then
 fi
 bash "$here/build" "$@"
 imageName="$("$here/imageName")"
-$divePath "$imageName"
+"$divePath" "$imageName"

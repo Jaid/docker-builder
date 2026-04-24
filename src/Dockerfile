@@ -7,7 +7,7 @@ ARG pythonVersion=3.14
 ENV pythonVersion=$pythonVersion
 ARG javaVersion=25
 ENV javaVersion=$javaVersion
-ARG bunVersion=1.3.1
+ARG bunVersion=1.3.13
 ENV bunVersion=$bunVersion
 ARG buildFolder=/build
 ENV buildFolder=$buildFolder
@@ -16,6 +16,12 @@ ENV groupName=$userName
 ENV userId=1000
 ENV groupId=$userId
 ENV userHome=/$userName
+ENV RUSTUP_HOME=/usr/local/rustup
+ENV CARGO_HOME=/usr/local/cargo
+ENV UV_PYTHON_INSTALL_DIR=/usr/local/share/uv/python
+ENV UV_PYTHON_BIN_DIR=/usr/local/bin
+ENV UV_PYTHON_INSTALL_BIN=1
+ENV PATH=$CARGO_HOME/bin:/usr/local/bin:$PATH
 WORKDIR $buildFolder
 
 ADD bin/initBuilder.bash /bin/initBuilder
@@ -62,4 +68,4 @@ ONBUILD RUN ["/bin/bash", "-c", "if [[ -f $userHome/bin/build14.bash ]]; then /b
 ONBUILD RUN ["/bin/bash", "-c", "if [[ -f $userHome/bin/build15.bash ]]; then /bin/bash -o errexit -o pipefail -o xtrace $userHome/bin/build15.bash; fi"]
 ONBUILD RUN ["/bin/bash", "-c", "if [[ -f $userHome/bin/build16.bash ]]; then /bin/bash -o errexit -o pipefail -o xtrace $userHome/bin/build16.bash; fi"]
 ONBUILD RUN ["/bin/bash", "-o", "xtrace", "/bin/afterBuild"]
-ONBUILD RUN chown --recursive $userId:$groupId $buildFolder $userHome
+ONBUILD RUN chown --recursive "$userId:$groupId" "$buildFolder" "$userHome"

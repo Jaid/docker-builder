@@ -15,10 +15,9 @@ fi
 if [[ -n "$existingGroup" ]]; then
   groupmod --gid 1001 "$existingGroup"
 fi
-userAddArguments=()
+userAddArguments=(--uid "$userId")
 if [[ -n "$userHome" ]]; then
-  userAddArguments+=(--home)
-  userAddArguments+=("$userHome")
+  userAddArguments+=(--home-dir "$userHome")
   if [[ -d "$userHome" ]]; then
     userAddArguments+=(--no-create-home)
   fi
@@ -27,15 +26,13 @@ else
 fi
 bashPath=$(command -v bash || true)
 if [[ -n "$bashPath" ]]; then
-  userAddArguments+=(--shell)
-  userAddArguments+=("$bashPath")
+  userAddArguments+=(--shell "$bashPath")
 fi
 if [[ -n "$groupName" ]]; then
-  groupadd --system --gid "$groupId" "$groupName"
-  userAddArguments+=(--gid)
-  userAddArguments+=("$groupName")
+  groupadd --gid "$groupId" "$groupName"
+  userAddArguments+=(--gid "$groupName")
 fi
-useradd --uid "$userId" --home "$userHome" "$userName" "${userAddArguments[@]}"
+useradd "${userAddArguments[@]}" "$userName"
 mkdir --parents "$userHome/bin"
 mkdir --parents "$userHome/userBin"
 

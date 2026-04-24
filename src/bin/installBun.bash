@@ -15,7 +15,8 @@ export BUN_INSTALL=/usr/local
 safeCurl https://bun.sh/install | bash -s "bun-v$bunVersion"
 
 if [[ ! -f /usr/local/bin/bun ]]; then
-  ln -s "$BUN_INSTALL/bin/bun" /usr/local/bin/bun
+  ln --symbolic "$BUN_INSTALL/bin/bun" /usr/local/bin/bun
 fi
 
 bun --version
+rm /bin/installBun

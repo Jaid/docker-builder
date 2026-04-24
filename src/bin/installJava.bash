@@ -19,3 +19,4 @@ installPackagesMinified "${packages[@]}"
 
 java -version
 mvn -version
+rm /bin/installJava
