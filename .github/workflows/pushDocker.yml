@@ -8,8 +8,6 @@ on:
   repository_dispatch:
     types: [bumped]
 jobs:
-  debug:
-    uses: jaid/workflows/.github/workflows/debug.yml@main
   job:
     name: ${{ github.workflow }}
     uses: jaid/workflows/.github/workflows/pushDocker.yml@main
